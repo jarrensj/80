@@ -7,6 +7,7 @@ import JSConfetti from 'js-confetti';
 const NumberClick = () => {
   const [coordinates, setCoordinates] = useState<{ x: number | null; y: number | null }>({ x: null, y: null });
   const [clickCount, setClickCount] = useState(0); 
+  const [numbers, setNumbers] = useState<{ x: number; y: number; id: number }[]>([]);
 
   useEffect(() => {
     const jsConfetti = new JSConfetti();
@@ -16,6 +17,7 @@ const NumberClick = () => {
       const y = event.clientY;
       setCoordinates({ x, y });
       setClickCount((prevCount) => prevCount + 1);
+      setNumbers((prevNumbers) => [...prevNumbers, { x, y, id: prevNumbers.length + 1 }]);
 
       jsConfetti.addConfetti({
         emojis: ['🍣','🦄'],
@@ -44,11 +46,11 @@ const NumberClick = () => {
 
   return (
     <div style={{ position: 'absolute', top: 0, left: 0 }}>
-      {coordinates.x !== null && coordinates.y !== null && (
-        <div style={{ position: 'absolute', top: coordinates.y, left: coordinates.x }}>
+      {numbers.map((number) => (
+        <div key={number.id} style={{ position: 'absolute', top: number.y, left: number.x }}>
           80
         </div>
-      )}
+      ))}
       <div style={counterStyle}>
         click count: {clickCount}
       </div>
