@@ -34,6 +34,10 @@ const NumberClick = () => {
     };
   }, []);
 
+  const clearCoordinates = () => {
+    setNumbers([]);
+  };
+
   const counterStyle: React.CSSProperties = {
     position: 'fixed',
     top: '20px',
@@ -54,6 +58,9 @@ const NumberClick = () => {
       <div style={counterStyle}>
         click count: {clickCount}
       </div>
+      <button style={{ position: 'fixed', bottom: '20px', right: '20px' }} onClick={clearCoordinates}>
+        Clear
+      </button>
     </div>
   );
 };
